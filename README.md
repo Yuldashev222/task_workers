@@ -42,6 +42,12 @@ python3 manage.py migrate
 python3 manage.py collectstatic
 ```
 
+### 5. create superuser for admin panel
+
+```bash
+python3 manage.py createsuperuser
+```
+
 ### 5. Generate fake data
 
 ```bash
