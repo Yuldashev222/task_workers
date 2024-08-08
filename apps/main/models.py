@@ -17,6 +17,7 @@ class Department(models.Model):
     parent = models.ForeignKey(
         verbose_name=_('подразделение'),
         to='self',
+        related_name='children',
         on_delete=models.CASCADE,
         blank=True,
         null=True
@@ -40,25 +41,6 @@ class Department(models.Model):
         verbose_name_plural = _('подразделении')
 
 
-class Position(models.Model):
-    """
-    Worker position model. Examples: Director, accountant, security, ...
-    """
-    name = models.CharField(
-        verbose_name=_('должность'),
-        max_length=255,
-        unique=True,
-        db_index=True
-    )
-
-    def __str__(self):
-        return self.name
-
-    class Meta:
-        verbose_name = _('должность')
-        verbose_name_plural = _('должности')
-
-
 class Worker(models.Model):
     """
     Worker information model
@@ -80,16 +62,18 @@ class Worker(models.Model):
         blank=True
     )  # blank=True Optional
 
-    position = models.ForeignKey(
+    position = models.CharField(
         verbose_name=_('должность'),
-        to=Position,
-        on_delete=models.PROTECT
+        max_length=255,
+        db_index=True
     )
 
     department = models.ForeignKey(
         verbose_name=_('подразделение'),
         to=Department,
-        on_delete=models.PROTECT
+        on_delete=models.PROTECT,
+        related_name='workers'
+
     )
 
     salary = models.DecimalField(
@@ -103,6 +87,12 @@ class Worker(models.Model):
         blank=True,
         null=True
     )  # blank=True, null=True Optional
+
+    def fullname(self):
+        return '%s %s %s' % (self.first_name, self.last_name, self.father_name)
+
+    def __str__(self):
+        return self.fullname()
 
     class Meta:
         verbose_name = _('сотрудник')

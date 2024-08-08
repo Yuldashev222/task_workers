@@ -1,0 +1,32 @@
+{% for department in departments %}
+    <li>
+        <span>{{ department.name }}</span>
+        <ul>
+            <!-- Вывод сотрудников -->
+            <table class="worker-table">
+                <thead>
+                <tr>
+                    <th>ФИО</th>
+                    <th>Должность</th>
+                    <th>Дата приема на работу</th>
+                    <th>Размер заработной платы</th>
+                </tr>
+                </thead>
+                <tbody>
+                {% for worker in department.workers.all %}
+                    <tr>
+                        <td>{{ worker.fullname }}</td>
+                        <td>{{ worker.position }}</td>
+                        <td>{{ worker.date_joined }}</td>
+                        <td>${{ worker.salary }}</td>
+                    </tr>
+                {% endfor %}
+                </tbody>
+            </table>
+            <!-- Рекурсивный вызов для дочерних отделов -->
+            {% if department.children.all %}
+                {% include 'department_node.html' with departments=department.children.all %}
+            {% endif %}
+        </ul>
+    </li>
+{% endfor %}

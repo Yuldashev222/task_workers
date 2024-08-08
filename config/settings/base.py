@@ -5,6 +5,7 @@ Django base settings
 import os
 from pathlib import Path
 
+
 BASE_DIR = Path(__file__).resolve().parent.parent.parent
 
 SECRET_KEY = os.environ.get('SECRET_KEY', 'test_secret_key')
@@ -12,6 +13,11 @@ SECRET_KEY = os.environ.get('SECRET_KEY', 'test_secret_key')
 DEBUG = True
 
 ALLOWED_HOSTS = []
+INTERNAL_IPS = [
+    'localhost',
+    '127.0.0.1'
+
+]
 
 INSTALLED_APPS = [
     'django.contrib.admin',
@@ -22,6 +28,7 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
 
     'rangefilter',
+    'debug_toolbar',
 
     'apps.main',
 ]
@@ -35,6 +42,8 @@ MIDDLEWARE = [
     'django.contrib.auth.middleware.AuthenticationMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
+
+    'debug_toolbar.middleware.DebugToolbarMiddleware'
 ]
 
 ROOT_URLCONF = 'config.urls'
@@ -42,7 +51,7 @@ ROOT_URLCONF = 'config.urls'
 TEMPLATES = [
     {
         'BACKEND': 'django.template.backends.django.DjangoTemplates',
-        'DIRS': [],
+        'DIRS': [BASE_DIR / 'templates'],
         'APP_DIRS': True,
         'OPTIONS': {
             'context_processors': [
@@ -66,7 +75,7 @@ AUTH_PASSWORD_VALIDATORS = [
 
 LANGUAGE_CODE = 'ru'
 
-TIME_ZONE = 'UTC'
+TIME_ZONE = 'Asia/Tashkent'
 
 USE_I18N = True
 

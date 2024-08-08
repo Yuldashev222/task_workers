@@ -1,8 +1,8 @@
 from django.contrib import admin
-from django.contrib.auth.models import Group, User
 from rangefilter.filters import DateRangeFilterBuilder
+from django.contrib.auth.models import Group, User
 
-from apps.main.models import Worker, Department, Position
+from apps.main.models import Worker, Department
 
 admin.site.unregister([Group, User])
 
@@ -18,18 +18,7 @@ class DepartmentAdmin(admin.ModelAdmin):
         'name',
     )
     list_display_links = list_display
-
-
-@admin.register(Position)
-class PositionAdmin(admin.ModelAdmin):
-    list_display = (
-        'id',
-        'name'
-    )
-    search_fields = (
-        'name',
-    )
-    list_display_links = list_display
+    ordering = ('id',)
 
 
 @admin.register(Worker)
@@ -45,9 +34,8 @@ class WorkerAdmin(admin.ModelAdmin):
         'date_joined',
     )
     list_filter = (
-        'position',
-        'department',
         ('date_joined', DateRangeFilterBuilder()),
+        'position',
     )
     search_fields = (
         'first_name',

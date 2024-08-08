@@ -1,0 +1,428 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Department List</title>
+    <!-- Bootstrap CSS -->
+    <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
+    <style>
+        .nested-list {
+            list-style-type: none;
+            padding-left: 1.5rem;
+        }
+
+        .collapse-toggle {
+            display: inline-block;
+            width: auto;
+            text-align: left;
+            padding: 10px 20px;
+            margin: 5px 0;
+            color: white;
+            font-size: 1.1rem;
+            border: none;
+            border-radius: 5px;
+            transition: background-color 0.3s ease, transform 0.3s ease;
+            text-decoration: none;
+        }
+
+        .collapse-toggle:hover {
+            transform: translateY(-2px);
+        }
+
+        .collapse-toggle.level-1 {
+            background-color: #007bff;
+        }
+
+        .collapse-toggle.level-1:hover {
+            background-color: #0056b3;
+        }
+
+        .collapse-toggle.level-2 {
+            background-color: #28a745;
+        }
+
+        .collapse-toggle.level-2:hover {
+            background-color: #218838;
+        }
+
+        .collapse-toggle.level-3 {
+            background-color: #17a2b8;
+        }
+
+        .collapse-toggle.level-3:hover {
+            background-color: #117a8b;
+        }
+
+        .collapse-toggle.level-4 {
+            background-color: #ffc107;
+        }
+
+        .collapse-toggle.level-4:hover {
+            background-color: #e0a800;
+        }
+
+        .collapse-toggle.level-5 {
+            background-color: #dc3545;
+        }
+
+        .collapse-toggle.level-5:hover {
+            background-color: #c82333;
+        }
+
+        .nested-list .collapse {
+            margin-top: 10px;
+        }
+
+        .department-header {
+            font-weight: bold;
+            margin-bottom: 10px;
+        }
+
+        .buttons-group {
+            display: flex;
+            gap: 10px;
+        }
+    </style>
+</head>
+<body>
+<div class="container mt-5">
+    <ul class="nested-list">
+        {% for department1 in departments %}
+            <li>
+                <div class="department-header">
+                    {{ department1 }}
+                </div>
+                <div class="buttons-group">
+                    <a class="collapse-toggle level-1" data-toggle="collapse"
+                       href="#collapseDepartments{{ department1.id }}" role="button" aria-expanded="false"
+                       aria-controls="collapseDepartments{{ department1.id }}">
+                        Inner Departments
+                    </a>
+                    <a class="collapse-toggle level-1" data-toggle="collapse"
+                       href="#collapseEmployees{{ department1.id }}" role="button" aria-expanded="false"
+                       aria-controls="collapseEmployees{{ department1.id }}">
+                        Employees
+                    </a>
+                </div>
+                <div class="collapse" id="collapseDepartments{{ department1.id }}">
+                    <ul class="nested-list">
+                        {% for department2 in department1.children.all %}
+                            <li>
+                                <div class="department-header">
+                                    {{ department2 }}
+                                </div>
+                                <div class="buttons-group">
+                                    <a class="collapse-toggle level-2" data-toggle="collapse"
+                                       href="#collapseDepartments{{ department2.id }}" role="button"
+                                       aria-expanded="false" aria-controls="collapseDepartments{{ department2.id }}">
+                                        Inner Departments
+                                    </a>
+                                    <a class="collapse-toggle level-2" data-toggle="collapse"
+                                       href="#collapseEmployees{{ department2.id }}" role="button" aria-expanded="false"
+                                       aria-controls="collapseEmployees{{ department2.id }}">
+                                        Employees
+                                    </a>
+                                </div>
+                                <div class="collapse" id="collapseDepartments{{ department2.id }}">
+                                    <ul class="nested-list">
+                                        {% for department3 in department2.children.all %}
+                                            <li>
+                                                <div class="department-header">
+                                                    {{ department3 }}
+                                                </div>
+                                                <div class="buttons-group">
+                                                    <a class="collapse-toggle level-3" data-toggle="collapse"
+                                                       href="#collapseDepartments{{ department3.id }}" role="button"
+                                                       aria-expanded="false"
+                                                       aria-controls="collapseDepartments{{ department3.id }}">
+                                                        Inner Departments
+                                                    </a>
+                                                    <a class="collapse-toggle level-3" data-toggle="collapse"
+                                                       href="#collapseEmployees{{ department3.id }}" role="button"
+                                                       aria-expanded="false"
+                                                       aria-controls="collapseEmployees{{ department3.id }}">
+                                                        Employees
+                                                    </a>
+                                                </div>
+                                                <div class="collapse" id="collapseDepartments{{ department3.id }}">
+                                                    <ul class="nested-list">
+                                                        {% for department4 in department3.children.all %}
+                                                            <li>
+                                                                <div class="department-header">
+                                                                    {{ department4 }}
+                                                                </div>
+                                                                <div class="buttons-group">
+                                                                    <a class="collapse-toggle level-4"
+                                                                       data-toggle="collapse"
+                                                                       href="#collapseDepartments{{ department4.id }}"
+                                                                       role="button" aria-expanded="false"
+                                                                       aria-controls="collapseDepartments{{ department4.id }}">
+                                                                        Inner Departments
+                                                                    </a>
+                                                                    <a class="collapse-toggle level-4"
+                                                                       data-toggle="collapse"
+                                                                       href="#collapseEmployees{{ department4.id }}"
+                                                                       role="button" aria-expanded="false"
+                                                                       aria-controls="collapseEmployees{{ department4.id }}">
+                                                                        Employees
+                                                                    </a>
+                                                                </div>
+                                                                <div class="collapse"
+                                                                     id="collapseDepartments{{ department4.id }}">
+                                                                    <ul class="nested-list">
+                                                                        {% for department5 in department4.children.all %}
+                                                                            <li>
+                                                                                <div class="department-header">
+                                                                                    {{ department5 }}
+                                                                                </div>
+                                                                                <div class="buttons-group">
+                                                                                    <a class="collapse-toggle level-5"
+                                                                                       data-toggle="collapse"
+                                                                                       href="#collapseDepartments{{ department5.id }}"
+                                                                                       role="button"
+                                                                                       aria-expanded="false"
+                                                                                       aria-controls="collapseDepartments{{ department5.id }}">
+                                                                                        Inner Departments
+                                                                                    </a>
+                                                                                    <a class="collapse-toggle level-5"
+                                                                                       data-toggle="collapse"
+                                                                                       href="#collapseEmployees{{ department5.id }}"
+                                                                                       role="button"
+                                                                                       aria-expanded="false"
+                                                                                       aria-controls="collapseEmployees{{ department5.id }}">
+                                                                                        Employees
+                                                                                    </a>
+                                                                                </div>
+                                                                                <div class="collapse"
+                                                                                     id="collapseDepartments{{ department5.id }}">
+                                                                                    <ul class="nested-list">
+                                                                                        {% for department6 in department5.children.all %}
+                                                                                            <li>
+                                                                                                <div class="department-header">
+                                                                                                    {{ department6 }}
+                                                                                                </div>
+                                                                                                <div class="buttons-group">
+                                                                                                    <a class="collapse-toggle level-6"
+                                                                                                       data-toggle="collapse"
+                                                                                                       href="#collapseDepartments{{ department6.id }}"
+                                                                                                       role="button"
+                                                                                                       aria-expanded="false"
+                                                                                                       aria-controls="collapseDepartments{{ department6.id }}">
+                                                                                                        Inner
+                                                                                                        Departments
+                                                                                                    </a>
+                                                                                                    <a class="collapse-toggle level-6"
+                                                                                                       data-toggle="collapse"
+                                                                                                       href="#collapseEmployees{{ department6.id }}"
+                                                                                                       role="button"
+                                                                                                       aria-expanded="false"
+                                                                                                       aria-controls="collapseEmployees{{ department6.id }}">
+                                                                                                        Employees
+                                                                                                    </a>
+                                                                                                </div>
+                                                                                                <div class="collapse"
+                                                                                                     id="collapseDepartments{{ department6.id }}">
+                                                                                                    <ul class="nested-list">
+                                                                                                        <!-- Add further nested departments here if needed -->
+                                                                                                    </ul>
+                                                                                                </div>
+                                                                                                <div class="collapse"
+                                                                                                     id="collapseEmployees{{ department6.id }}">
+                                                                                                    <table class="table table-striped">
+                                                                                                        <thead>
+                                                                                                        <tr>
+                                                                                                            <th>Full
+                                                                                                                Name
+                                                                                                            </th>
+                                                                                                            <th>Date
+                                                                                                                Joined
+                                                                                                            </th>
+                                                                                                            <th>
+                                                                                                                должность
+                                                                                                            </th>
+                                                                                                            <th>заработная плата
+                                                                                                            </th>
+                                                                                                        </tr>
+                                                                                                        </thead>
+                                                                                                        <tbody>
+                                                                                                        {% for worker in department6.workers.all %}
+                                                                                                            <tr>
+                                                                                                                <td>{{ worker.fullname }}</td>
+                                                                                                                <td>{{ worker.date_joined }}</td>
+                                                                                                                <td>{{ worker.position }}</td>
+                                                                                                                <td>{{ worker.salary }}</td>
+                                                                                                            </tr>
+                                                                                                        {% endfor %}
+                                                                                                        </tbody>
+                                                                                                    </table>
+                                                                                                </div>
+                                                                                            </li>
+                                                                                        {% endfor %}
+                                                                                    </ul>
+                                                                                </div>
+                                                                                <div class="collapse"
+                                                                                     id="collapseEmployees{{ department5.id }}">
+                                                                                    <table class="table table-striped">
+                                                                                        <thead>
+                                                                                        <tr>
+                                                                                            <th>ФИО</th>
+                                                                                            <th>дата приема на работу</th>
+                                                                                            <th>должность</th>
+                                                                                            <th>заработная плата</th>
+                                                                                        </tr>
+                                                                                        </thead>
+                                                                                        <tbody>
+                                                                                        {% for worker in department5.workers.all %}
+                                                                                            <tr>
+                                                                                                <td>{{ worker.fullname }}</td>
+                                                                                                <td>{{ worker.date_joined }}</td>
+                                                                                                <td>{{ worker.position }}</td>
+                                                                                                <td>{{ worker.salary }}</td>
+                                                                                            </tr>
+                                                                                        {% endfor %}
+                                                                                        </tbody>
+                                                                                    </table>
+                                                                                </div>
+                                                                            </li>
+                                                                        {% endfor %}
+                                                                    </ul>
+                                                                </div>
+                                                                <div class="collapse"
+                                                                     id="collapseEmployees{{ department4.id }}">
+                                                                    <table class="table table-striped">
+                                                                        <thead>
+                                                                        <tr>
+                                                                            <th>ФИО</th>
+                                                                            <th>дата приема на работу</th>
+                                                                            <th>должность</th>
+                                                                            <th>заработная плата</th>
+                                                                        </tr>
+                                                                        </thead>
+                                                                        <tbody>
+                                                                        {% for worker in department4.workers.all %}
+                                                                            <tr>
+                                                                                <td>{{ worker.fullname }}</td>
+                                                                                <td>{{ worker.date_joined }}</td>
+                                                                                <td>{{ worker.position }}</td>
+                                                                                <td>{{ worker.salary }}</td>
+                                                                            </tr>
+                                                                        {% endfor %}
+                                                                        </tbody>
+                                                                    </table>
+                                                                </div>
+                                                            </li>
+                                                        {% endfor %}
+                                                    </ul>
+                                                </div>
+                                                <div class="collapse" id="collapseEmployees{{ department3.id }}">
+                                                    <table class="table table-striped">
+                                                        <thead>
+                                                        <tr>
+                                                            <th>ФИО</th>
+                                                            <th>дата приема на работу</th>
+                                                            <th>должность</th>
+                                                            <th>заработная плата</th>
+                                                        </tr>
+                                                        </thead>
+                                                        <tbody>
+                                                        {% for worker in department3.workers.all %}
+                                                            <tr>
+                                                                <td>{{ worker.fullname }}</td>
+                                                                <td>{{ worker.date_joined }}</td>
+                                                                <td>{{ worker.position }}</td>
+                                                                <td>{{ worker.salary }}</td>
+                                                            </tr>
+                                                        {% endfor %}
+                                                        </tbody>
+                                                    </table>
+                                                </div>
+                                            </li>
+                                        {% endfor %}
+                                    </ul>
+                                </div>
+                                <div class="collapse" id="collapseEmployees{{ department2.id }}">
+                                    <table class="table table-striped">
+                                        <thead>
+                                        <tr>
+                                            <th>ФИО</th>
+                                            <th>дата приема на работу</th>
+                                            <th>должность</th>
+                                            <th>заработная плата</th>
+                                        </tr>
+                                        </thead>
+                                        <tbody>
+                                        {% for worker in department2.workers.all %}
+                                            <tr>
+                                                <td>{{ worker.fullname }}</td>
+                                                <td>{{ worker.date_joined }}</td>
+                                                <td>{{ worker.position }}</td>
+                                                <td>{{ worker.salary }}</td>
+                                            </tr>
+                                        {% endfor %}
+                                        </tbody>
+                                    </table>
+                                </div>
+                            </li>
+                        {% endfor %}
+                    </ul>
+                </div>
+                <div class="collapse" id="collapseEmployees{{ department1.id }}">
+                    <table class="table table-striped">
+                        <thead>
+                        <tr>
+                            <th>ФИО</th>
+                            <th>дата приема на работу</th>
+                            <th>должность</th>
+                            <th>заработная плата</th>
+                        </tr>
+                        </thead>
+                        <tbody>
+                        {% for worker in department1.workers.all %}
+                            <tr>
+                                <td>{{ worker.fullname }}</td>
+                                <td>{{ worker.date_joined }}</td>
+                                <td>{{ worker.position }}</td>
+                                <td>{{ worker.salary }}</td>
+                            </tr>
+                        {% endfor %}
+                        </tbody>
+                    </table>
+                </div>
+            </li>
+        {% endfor %}
+    </ul>
+</div>
+
+<!-- Bootstrap JS and dependencies -->
+<script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.3/dist/umd/popper.min.js"></script>
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+<script>
+    document.addEventListener('DOMContentLoaded', function () {
+        var workerToggles = document.querySelectorAll('[id^=collapseEmployees]');
+        var departmentToggles = document.querySelectorAll('[id^=collapseDepartments]');
+
+        workerToggles.forEach(function (toggle) {
+            toggle.addEventListener('show.bs.collapse', function () {
+                departmentToggles.forEach(function (departmentToggle) {
+                    if (departmentToggle.classList.contains('show')) {
+                        $(departmentToggle).collapse('hide');
+                    }
+                });
+            });
+        });
+
+        departmentToggles.forEach(function (toggle) {
+            toggle.addEventListener('show.bs.collapse', function () {
+                workerToggles.forEach(function (workerToggle) {
+                    if (workerToggle.classList.contains('show')) {
+                        $(workerToggle).collapse('hide');
+                    }
+                });
+            });
+        });
+    });
+</script>
+</body>
+</html>
