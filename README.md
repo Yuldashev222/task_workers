@@ -38,6 +38,10 @@ python3 manage.py makemigrations
 python3 manage.py migrate
 ```
 
+```bash
+python3 collectstatic
+```
+
 ### 5. Generate fake data
 
 ```bash
