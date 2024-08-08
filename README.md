@@ -9,11 +9,11 @@ git clone https://github.com/yuldashev222/task_workers.git
 ### 2. Create Virtual Environment
 
 ```bash
-mkdir task_workers && cd task_workers
+cd task_workers
 ```
 
 ```bash
-python3 -m venv venv
+virtualenv venv
 ```
 
 ### 3. Activate Virtual Environment
@@ -31,7 +31,7 @@ pip install -r requirements.txt
 ### 5. create database
 
 ```bash
-python3 manage.py makemigrations
+python3 manage.py makemigrations main
 ```
 
 ```bash
@@ -39,7 +39,7 @@ python3 manage.py migrate
 ```
 
 ```bash
-python3 collectstatic
+python3 manage.py collectstatic
 ```
 
 ### 5. Generate fake data
